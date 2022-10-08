@@ -1,0 +1,41 @@
+<h2 class="content-subhead">Search</h2>
+
+<form action="/search" method="get">
+  <input name="query" value="<%= params[:query] %>">
+  <button type="submit">Search</button>
+</form>
+
+<% unless params[:query].nil? %>
+
+  <% if @total_text.any? { |chapter| chapter.match?("#{params[:query]}") } %> 
+    <h2 class="content-subhead">Results for '<%= params[:query] %>'</h2>
+    <ul>
+      <% @chapter_results.each do |chapter_num| %>
+        <li>
+          <a href="/chapters/<%= chapter_num + 1 %>"><%= @contents[chapter_num] %></a>
+          <!-- for each chapter: -->
+          <!-- iterate over paragraphs -->
+          <% para_match = [] %>
+          <% paragraphs = para_array(File.read("data/chp#{chapter_num + 1}.txt")) %>
+          <% paragraphs.each_with_index do |para, idx| %>
+            <!-- store array of indices where match is found -->
+
+            <% para_match << idx if para.match?(params[:query].to_s) %>
+
+          <% end %>
+          <ul>
+            <!-- display each paragraph as a list item -->
+            <% para_match.each do |para_num| %>
+              <li>
+                <%= highlight_match(paragraphs[para_num], params[:query]) %>
+              </li>
+            <% end %>
+            </ol>
+        </li>
+          </ul>
+        <% end %>
+      <% else %>
+    <p>Sorry, no matches were found</p>
+  <% end %>
+
+<% end %>
