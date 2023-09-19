@@ -4,8 +4,8 @@ GEM
     backports (3.23.0)
     erubis (2.7.0)
     multi_json (1.15.0)
-    nio4r (2.5.8)
-    puma (5.6.5)
+    nio4r (2.5.9)
+    puma (5.6.7)
       nio4r (~> 2.0)
     rack (1.6.13)
     rack-protection (1.5.5)
@@ -29,10 +29,10 @@ PLATFORMS
   x86_64-linux
 
 DEPENDENCIES
-  erubis
-  puma
-  sinatra (~> 1.4.7)
-  sinatra-contrib
+  erubis (~> 2.7)
+  puma (~> 5.6)
+  sinatra (~> 1.4)
+  sinatra-contrib (~> 1.4)
 
 RUBY VERSION
    ruby 3.1.2p20
